@@ -1,0 +1,6 @@
+<form id="accesspanel">
+  <input type="text" id="email" placeholder="Username/Email" [(ngModel)]="username" name="username">
+  <input type="password" id="password" placeholder="Password" [(ngModel)]="password" name="password">
+  <input type="submit" name="Login" id="go" value="Login" (click)="doLogin()">
+</form>
+<h1>{{message}}</h1>

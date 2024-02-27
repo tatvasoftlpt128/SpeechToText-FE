@@ -5,7 +5,6 @@ import { defaultLanguage, languages } from '../shared/model/languages';
 import { SpeechError } from '../shared/model/speech-error';
 import { SpeechEvent } from '../shared/model/speech-event';
 import { SpeechRecognizerService } from '../shared/services/web-apis/speech-recognizer.service';
-import { ActionContext } from '../shared/services/actions/action-context';
 import { SpeechNotification } from '../shared/model/speech-notification';
 import { SpeechToTextService } from '../shared/services/web-speech/speech-to-text.service';
 
@@ -22,14 +21,13 @@ export class WebSpeechComponent implements OnInit {
 
   transcript$?: Observable<string>;
   listening$?: Observable<boolean>;
-  correctText: string;
+  correctText: string="";
   abc?: string;
   errorMessage$?: Observable<string>;
   defaultError$ = new Subject<string | undefined>();
 
   constructor(
     private speechRecognizer: SpeechRecognizerService,
-    private actionContext: ActionContext,
     private speechToTextService: SpeechToTextService
   ) {}
 
@@ -146,7 +144,6 @@ export class WebSpeechComponent implements OnInit {
     debugger
     if (notification.event === SpeechEvent.FinalContent) {
       const message = notification.content?.trim() || '';
-      this.actionContext.processMessage(message, this.currentLanguage);
       // this.actionContext.runAction(message, this.currentLanguage);
       this.totalTranscript = this.totalTranscript
         ? `${this.totalTranscript}\n${message}`
